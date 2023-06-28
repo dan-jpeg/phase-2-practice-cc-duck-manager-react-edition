@@ -1,17 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function DuckForm(props) {
-  return (
-    <form id="new-duck-form">
-       <label for="duck-name-input">New Duck Name:</label>
-       <input type="text" name="duck-name-input" />
+function DuckForm({ duckFormOpen, addDuck }) {
 
-       <label for="duck-image-input">New Duck Image URL:</label>
-       <input type="text" name="duck-image-input" />
+  const [name, setName] = useState('')
+  const [image, setImage] = useState('')
+  
+    function handleNameChange(event) {
+      setName(event.target.value)
+    }
+  
+    function handleImageChange(event) {
+      setImage(event.target.value)
+    }
+  
+    function handleSubmit(event) {
+      event.preventDefault()
+      addDuck({name: name, img_url: image, likes: 0})
 
-       <input type="submit" value="Create Duck" />
-    </form>
-  )
+    }
+
+    // with one object
+    // function DuckForm({ duckFormOpen, addDuck }) {
+    //   const [duckData, setDuckData] = useState({
+    //     name: '',
+    //     image: ''
+    //   });
+    
+    //   function handleChange(event) {
+    //     const { name, value } = event.target;
+    //     setDuckData(prevState => ({
+    //       ...prevState,
+    //       [name]: value
+    //     }));
+    //   }
+    
+    //   function handleSubmit(event) {
+    //     event.preventDefault();
+    //     addDuck({ name: duckData.name, img_url: duckData.image, likes: 0 });
+    //   }
+    
+
+
+  return (  
+    <div>
+      {duckFormOpen ? (
+        <form  onSubmit={handleSubmit} id="new-duck-form">
+          <label htmlFor="duck-name-input">New Duck Name:</label>
+          <input onChange={handleNameChange} type="text" name="duck-name-input" />
+
+          <label htmlFor="duck-image-input">New Duck Image URL:</label>
+          <input onChange={handleImageChange}type="text" name="duck-image-input" />
+
+          <input type="submit" value="Create Duck" />
+        </form>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 }
 
-export default DuckForm
+export default DuckForm;
+

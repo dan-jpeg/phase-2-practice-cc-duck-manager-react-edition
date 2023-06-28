@@ -1,10 +1,15 @@
 import React from 'react'
+import DuckListCard from './DuckListCard'
 
-function DuckList(props) {
+function DuckList({ducks, handleDisplayDuck }) {
+
+  const duckComponents = ducks.map(duck => {
+    return <DuckListCard key={duck.id} handleDisplayDuck={handleDisplayDuck}  duck={duck}/>
+  })
   return (
 
     <div className="duck-nav">
-      {/* display the duck card components here */}
+      {duckComponents}
     </div>
 
   )
